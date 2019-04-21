@@ -7,7 +7,7 @@ define('TENCENT_HOST', '');
 
 
 
-function 腾讯对象存储($method, $filename, $file = '') {
+function 腾讯对象存储 ($method, $filename, $file = '') {
 	$app_id				= TENCENT_APP_ID;
 	$accessKeyId		= TENCENT_ACCESSKEYID;
 	$accessKeySecret	= TENCENT_ACCESSKEYSECRET;

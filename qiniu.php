@@ -11,7 +11,7 @@ define('QINIU_RS_HOST', 'http://rs.qiniu.com');
 function qn_base64_encode ($data) {
 	return 	str_replace(array('+', '/'), array('-', '_'), base64_encode($data));
 }
-function 七牛对象存储上传($file, $filename) {
+function 七牛对象存储上传 ($file, $filename) {
 	$accessKeyId		= QINIU_ACCESSKEYID;
 	$accessKeySecret	= QINIU_ACCESSKEYSECRET;
 	$bucket				= QINIU_BUCKET;
@@ -40,10 +40,10 @@ function 七牛对象存储上传($file, $filename) {
 		'key'			=> $filename,
 		'file'			=> new CURLFile($file)
 	);
-print_r($postfileds);
+
 	return curl($url, $headers, 'POST', '', $postfileds);
 }
-function 七牛对象存储列表($query = '') {
+function 七牛对象存储列表 ($query = '') {
 	$accessKeyId		= QINIU_ACCESSKEYID;
 	$accessKeySecret	= QINIU_ACCESSKEYSECRET;
 	$bucket				= QINIU_BUCKET;
@@ -70,7 +70,7 @@ function 七牛对象存储列表($query = '') {
 	$objectlist->Contents = $objectlist->items; unset($objectlist->items);
 	return $objectlist;
 }
-function 七牛对象存储删除($filename) {
+function 七牛对象存储删除 ($filename) {
 	$accessKeyId		= QINIU_ACCESSKEYID;
 	$accessKeySecret	= QINIU_ACCESSKEYSECRET;
 	$bucket				= QINIU_BUCKET;

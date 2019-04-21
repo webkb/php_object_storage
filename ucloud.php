@@ -6,7 +6,7 @@ define('UCLOUD_HOST', '');
 
 
 
-function UCloud对象存储($method, $filename, $file = '') {
+function UCloud对象存储 ($method, $filename, $file = '') {
 	$accessKeyId		= UCLOUD_ACCESSKEYID;
 	$accessKeySecret	= UCLOUD_ACCESSKEYSECRET;
 	$bucket				= UCLOUD_BUCKET;

@@ -6,7 +6,7 @@ define('WANGYI_HOST', '');
 
 
 
-function 网易对象存储($method, $filename, $file = '') {
+function 网易对象存储 ($method, $filename, $file = '') {
 	$accessKeyId		= WANGYI_ACCESSKEYID;
 	$accessKeySecret	= WANGYI_ACCESSKEYSECRET;
 	$bucket				= WANGYI_BUCKET;

@@ -1,5 +1,5 @@
 <?php
-function curl($url, $headers, $method = '', $file = '', $postfileds = '') {
+function curl ($url, $headers, $method = '', $file = '', $postfileds = '') {
 
 	$curl_handle = curl_init();
 
@@ -30,7 +30,7 @@ function curl($url, $headers, $method = '', $file = '', $postfileds = '') {
 
 	return $response;
 }
-function curl_put($url, $headers, $file_handle) {
+function curl_put ($url, $headers, $file_handle) {
 
 	$curl_handle = curl_init();
 
@@ -46,7 +46,7 @@ function curl_put($url, $headers, $file_handle) {
 
 	return $response;
 }
-function curl_put_with($url, $headers, $postfileds) {
+function curl_put_with ($url, $headers, $postfileds) {
 
 	$curl_handle = curl_init();
 
@@ -62,7 +62,7 @@ function curl_put_with($url, $headers, $postfileds) {
 
 	return $response;
 }
-function curl_post($url, $headers, $postfileds) {
+function curl_post ($url, $headers, $postfileds) {
 
 	$curl_handle = curl_init();
 
@@ -78,7 +78,7 @@ function curl_post($url, $headers, $postfileds) {
 
 	return $response;
 }
-function curl_post_without($url, $headers) {
+function curl_post_without ($url, $headers) {
 
 	$curl_handle = curl_init();
 
@@ -93,7 +93,7 @@ function curl_post_without($url, $headers) {
 
 	return $response;
 }
-function curl_get($url, $headers) {
+function curl_get ($url, $headers) {
 
 	$curl_handle = curl_init();
 
@@ -107,7 +107,7 @@ function curl_get($url, $headers) {
 
 	return $response;
 }
-function curl_delete($url, $headers) {
+function curl_delete ($url, $headers) {
 
 	$curl_handle = curl_init();
 

@@ -7,29 +7,29 @@ define('WANGYI_HOST', '');
 
 
 function 网易对象存储 ($method, $filename, $file = '') {
-	$accessKeyId		= WANGYI_ACCESSKEYID;
-	$accessKeySecret	= WANGYI_ACCESSKEYSECRET;
-	$bucket				= WANGYI_BUCKET;
-	$domain				= WANGYI_HOST;
+	$accessKeyId        = WANGYI_ACCESSKEYID;
+	$accessKeySecret    = WANGYI_ACCESSKEYSECRET;
+	$bucket             = WANGYI_BUCKET;
+	$domain             = WANGYI_HOST;
 
-	$url				= "http://$bucket.$domain/$filename";
+	$url                = "http://$bucket.$domain/$filename";
 
-	$date				= gmdate('D, d M Y H:i:s \G\M\T');
-	$options			= join("\n", array(
+	$date               = gmdate('D, d M Y H:i:s \G\M\T');
+	$options            = join("\n", array(
 		strtoupper($method),
 		'',
 		'',
 		$date,
 		"/$bucket/$filename"
 	));
-	$hash				= hash_hmac(
+	$hash               = hash_hmac(
 		'sha256',
 		$options,
 		$accessKeySecret,
 		true
 	);
-	$auth				= $accessKeyId . ':' . base64_encode($hash);
-	$headers			= array(
+	$auth               = $accessKeyId . ':' . base64_encode($hash);
+	$headers            = array(
 		"Host: $bucket.$domain",
 		"Date: $date",
 		"Authorization: NOS $auth"

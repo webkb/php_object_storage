@@ -14,9 +14,9 @@ function 腾讯对象存储 ($method, $filename = '', $file = '',$query = '') {
 	$bucket             = TENCENT_BUCKET;
 	$domain             = TENCENT_HOST;
 
-	$url = "http://$bucket-$app_id.$domain/$filename$query";
+	$url                = "http://$bucket-$app_id.$domain/$filename$query";
 
-	$signTime = time() . ';' . (time() + 3600);
+	$signTime           = time() . ';' . (time() + 3600);
 	$options            = sha1(join("\n", array(
 		strtolower($method),
 		"/$filename",

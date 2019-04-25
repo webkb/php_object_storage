@@ -6,13 +6,13 @@ define('WANGYI_HOST', '');
 
 
 
-function 网易对象存储 ($method, $filename, $file = '') {
+function 网易对象存储 ($method, $filename = '', $file = '', $query = '') {
 	$accessKeyId        = WANGYI_ACCESSKEYID;
 	$accessKeySecret    = WANGYI_ACCESSKEYSECRET;
 	$bucket             = WANGYI_BUCKET;
 	$domain             = WANGYI_HOST;
 
-	$url                = "http://$bucket.$domain/$filename";
+	$url                = "http://$bucket.$domain/$filename$query";
 
 	$date               = gmdate('D, d M Y H:i:s \G\M\T');
 	$options            = join("\n", array(
@@ -36,9 +36,9 @@ function 网易对象存储 ($method, $filename, $file = '') {
 	);
 
 	if ($file) {
-		return curl($url, $headers, strtoupper($method), $file);
+		return curl($url, $headers, $method, $file);
 	} else {
-		return curl($url, $headers, strtoupper($method));
+		return curl($url, $headers, $method);
 	}
 }
 function 网易对象存储上传 ($file, $filename) {
@@ -48,7 +48,7 @@ function 网易对象存储删除 ($filename) {
 	return 网易对象存储('DELETE', $filename);
 }
 function 网易对象存储列表 ($query = '') {
-	$xmllist = 网易对象存储('GET', $query);
+	$xmllist = 网易对象存储('GET', '', '', $query);
 	$objectlist = simplexml_load_string($xmllist, 'SimpleXMLElement', LIBXML_NOCDATA);
 	return $objectlist;
 }

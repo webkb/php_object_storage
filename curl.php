@@ -8,7 +8,7 @@ function curl ($url, $headers, $method = '', $file = '', $postfileds = '') {
 	curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
 
 	if ($method) {
-		curl_setopt($curl_handle, CURLOPT_CUSTOMREQUEST, $method);
+		curl_setopt($curl_handle, CURLOPT_CUSTOMREQUEST, strtoupper($method));
 	}
 
 	if ($file) {
@@ -21,7 +21,7 @@ function curl ($url, $headers, $method = '', $file = '', $postfileds = '') {
 	}
 
 	$response = curl_exec($curl_handle);//var_dump($response);
-	$info = curl_getinfo($curl_handle);var_dump($info);
+	$info = curl_getinfo($curl_handle);//var_dump($info);
 	curl_close($curl_handle);
 
 	if ($file) {
@@ -40,8 +40,8 @@ function curl_put ($url, $headers, $file_handle) {
 	curl_setopt($curl_handle, CURLOPT_READDATA, $file_handle);
 	curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
 
-	$response = curl_exec($curl_handle);var_dump($response);
-	$info = curl_getinfo($curl_handle);var_dump($info);
+	$response = curl_exec($curl_handle);//var_dump($response);
+	$info = curl_getinfo($curl_handle);//var_dump($info);
 	curl_close($curl_handle);
 
 	return $response;
@@ -57,7 +57,7 @@ function curl_put_with ($url, $headers, $postfileds) {
 	curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
 
 	$response = curl_exec($curl_handle);//var_dump($response);
-	$info = curl_getinfo($curl_handle);var_dump($info);
+	$info = curl_getinfo($curl_handle);//var_dump($info);
 	curl_close($curl_handle);
 
 	return $response;
@@ -73,7 +73,7 @@ function curl_post ($url, $headers, $postfileds) {
 	curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
 
 	$response = curl_exec($curl_handle);//var_dump($response);
-	$info = curl_getinfo($curl_handle);var_dump($info);
+	$info = curl_getinfo($curl_handle);//var_dump($info);
 	curl_close($curl_handle);
 
 	return $response;
@@ -88,7 +88,7 @@ function curl_post_without ($url, $headers) {
 	curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
 
 	$response = curl_exec($curl_handle);//var_dump($response);
-	$info = curl_getinfo($curl_handle);var_dump($info);
+	$info = curl_getinfo($curl_handle);//var_dump($info);
 	curl_close($curl_handle);
 
 	return $response;
@@ -102,7 +102,7 @@ function curl_get ($url, $headers) {
 	curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
 
 	$response = curl_exec($curl_handle);//var_dump($response);
-	$info = curl_getinfo($curl_handle);var_dump($info);
+	$info = curl_getinfo($curl_handle);//var_dump($info);
 	curl_close($curl_handle);
 
 	return $response;
@@ -117,7 +117,7 @@ function curl_delete ($url, $headers) {
 	curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
 
 	$response = curl_exec($curl_handle);//var_dump($response);
-	$info = curl_getinfo($curl_handle);var_dump($info);
+	$info = curl_getinfo($curl_handle);//var_dump($info);
 	curl_close($curl_handle);
 
 	return $response;

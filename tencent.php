@@ -7,14 +7,14 @@ define('TENCENT_HOST', '');
 
 
 
-function 腾讯对象存储 ($method, $filename, $file = '') {
+function 腾讯对象存储 ($method, $filename = '', $file = '',$query = '') {
 	$app_id				= TENCENT_APP_ID;
 	$accessKeyId		= TENCENT_ACCESSKEYID;
 	$accessKeySecret	= TENCENT_ACCESSKEYSECRET;
 	$bucket				= TENCENT_BUCKET;
 	$domain				= TENCENT_HOST;
 
-	$url = "http://$bucket-$app_id.$domain/$filename";
+	$url = "http://$bucket-$app_id.$domain/$filename$query";
 
 	$signTime = time() . ';' . (time() + 3600);
 	$options			= sha1(join("\n", array(
@@ -54,9 +54,9 @@ function 腾讯对象存储 ($method, $filename, $file = '') {
 	);
 
 	if ($file) {
-		return curl($url, $headers, strtoupper($method), $file);
+		return curl($url, $headers, $method, $file);
 	} else {
-		return curl($url, $headers, strtoupper($method));
+		return curl($url, $headers, $method);
 	}
 }
 function 腾讯对象存储上传 ($file, $filename) {
@@ -66,7 +66,7 @@ function 腾讯对象存储删除 ($filename) {
 	return 腾讯对象存储('DELETE', $filename);
 }
 function 腾讯对象存储列表 ($query = '') {
-	$xmllist = 腾讯对象存储('GET', $query);
+	$xmllist = 腾讯对象存储('GET', '', '', $query);
 	$objectlist = simplexml_load_string($xmllist, 'SimpleXMLElement', LIBXML_NOCDATA);
 	return $objectlist;
 }

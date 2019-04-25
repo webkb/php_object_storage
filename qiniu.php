@@ -36,9 +36,9 @@ function 七牛对象存储上传 ($file, $filename) {
 	);
 
 	$postfileds         = array(
-		'token'         => $auth,
-		'key'           => $filename,
-		'file'          => new CURLFile($file)
+		'token' => $auth,
+		'key' => $filename,
+		'file' => new CURLFile($file)
 	);
 
 	return curl($url, $headers, 'POST', '', $postfileds);

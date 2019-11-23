@@ -1,5 +1,5 @@
 <?php
-function curl ($url, $headers, $method = '', $file = '', $postfileds = '') {
+function curl ($url, $headers, $method = '', $filepath = '', $postfileds = '') {
 
 	$curl_handle = curl_init();
 
@@ -11,12 +11,11 @@ function curl ($url, $headers, $method = '', $file = '', $postfileds = '') {
 		curl_setopt($curl_handle, CURLOPT_CUSTOMREQUEST, strtoupper($method));
 	}
 
-	if ($file) {
+	if ($filepath) {
 		curl_setopt($curl_handle, CURLOPT_UPLOAD, 1);
-		$file_handle = fopen($file, 'rb');
+		$file_handle = fopen($filepath, 'rb');
 		curl_setopt($curl_handle, CURLOPT_READDATA, $file_handle);
-	}
-	if ($postfileds) {
+	} elseif ($postfileds) {
 		curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $postfileds);
 	}
 
@@ -24,7 +23,7 @@ function curl ($url, $headers, $method = '', $file = '', $postfileds = '') {
 	$info = curl_getinfo($curl_handle);//var_dump($info);
 	curl_close($curl_handle);
 
-	if ($file) {
+	if ($filepath) {
 		fclose($file_handle);
 	}
 

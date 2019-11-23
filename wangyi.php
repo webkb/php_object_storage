@@ -6,13 +6,17 @@ define('WANGYI_HOST', '');
 
 
 
-function 网易对象存储 ($method, $filename = '', $file = '', $query = '') {
+function 网易对象存储 ($method, $filename = '', $filepath = '', $query = '') {
 	$accessKeyId        = WANGYI_ACCESSKEYID;
 	$accessKeySecret    = WANGYI_ACCESSKEYSECRET;
 	$bucket             = WANGYI_BUCKET;
 	$domain             = WANGYI_HOST;
 
-	$url                = "http://$bucket.$domain/$filename$query";
+	if ($filename) {
+		$url            = "http://$bucket.$domain/$filename";
+	} elseif ($query) {
+		$url            = "http://$bucket.$domain/$query";
+	}
 
 	$date               = gmdate('D, d M Y H:i:s \G\M\T');
 	$options            = join("\n", array(
@@ -41,8 +45,8 @@ function 网易对象存储 ($method, $filename = '', $file = '', $query = '') {
 		return curl($url, $headers, $method);
 	}
 }
-function 网易对象存储上传 ($file, $filename) {
-	return 网易对象存储('PUT', $filename, $file);
+function 网易对象存储上传 ($filename, $filepath) {
+	return 网易对象存储('PUT', $filename, $filepath);
 }
 function 网易对象存储删除 ($filename) {
 	return 网易对象存储('DELETE', $filename);

@@ -7,21 +7,24 @@ define('TENCENT_HOST', '');
 
 
 
-function 腾讯对象存储 ($method, $filename = '', $file = '',$query = '') {
-	$app_id             = TENCENT_APP_ID;
+function 腾讯对象存储 ($method, $filename = '', $filepath = '',$query = '') {
 	$accessKeyId        = TENCENT_ACCESSKEYID;
 	$accessKeySecret    = TENCENT_ACCESSKEYSECRET;
-	$bucket             = TENCENT_BUCKET;
+	$bucket             = TENCENT_BUCKET . '-' . TENCENT_APP_ID;
 	$domain             = TENCENT_HOST;
 
-	$url                = "http://$bucket-$app_id.$domain/$filename$query";
+	if ($filename) {
+		$url            =  "http://$bucket.$domain/$filename";
+	} elseif ($query) {
+		$url            =  "http://$bucket.$domain/$query";
+	}
 
 	$signTime           = time() . ';' . (time() + 3600);
 	$options            = sha1(join("\n", array(
 		strtolower($method),
 		"/$filename",
 		'',
-		"host=$bucket-$app_id.$domain",
+		"host=$bucket.$domain",
 		''
 	)));
 	$signOptions        = join("\n", array(
@@ -54,13 +57,13 @@ function 腾讯对象存储 ($method, $filename = '', $file = '',$query = '') {
 	);
 
 	if ($file) {
-		return curl($url, $headers, $method, $file);
+		return curl($url, $headers, $method, $filepath);
 	} else {
 		return curl($url, $headers, $method);
 	}
 }
-function 腾讯对象存储上传 ($file, $filename) {
-	return 腾讯对象存储('PUT', $filename, $file);
+function 腾讯对象存储上传 ($filename, $filepath) {
+	return 腾讯对象存储('PUT', $filename, $filepath);
 }
 function 腾讯对象存储删除 ($filename) {
 	return 腾讯对象存储('DELETE', $filename);

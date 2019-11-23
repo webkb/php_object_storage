@@ -11,7 +11,7 @@ define('QINIU_RS_HOST', 'http://rs.qiniu.com');
 function qn_base64_encode ($data) {
 	return str_replace(array('+', '/'), array('-', '_'), base64_encode($data));
 }
-function 七牛对象存储上传 ($file, $filename) {
+function 七牛对象存储上传 ($filename, $filepath) {
 	$accessKeyId        = QINIU_ACCESSKEYID;
 	$accessKeySecret    = QINIU_ACCESSKEYSECRET;
 	$bucket             = QINIU_BUCKET;
@@ -38,10 +38,33 @@ function 七牛对象存储上传 ($file, $filename) {
 	$postfileds         = array(
 		'token' => $auth,
 		'key' => $filename,
-		'file' => new CURLFile($file)
+		'file' => new CURLFile($filepath)
 	);
 
 	return curl($url, $headers, 'POST', '', $postfileds);
+}
+function 七牛对象存储删除 ($filename) {
+	$accessKeyId        = QINIU_ACCESSKEYID;
+	$accessKeySecret    = QINIU_ACCESSKEYSECRET;
+	$bucket             = QINIU_BUCKET;
+
+	$options            = '/delete/' . qn_base64_encode($bucket . ':' . $filename);
+
+	$url                = QINIU_RS_HOST . $options;
+
+	$hash               = hash_hmac(
+		'sha1',
+		$options . "\n",
+		$accessKeySecret,
+		true
+	);
+	$auth               = $accessKeyId . ':' . qn_base64_encode($hash);
+
+	$headers            = array(
+		"Authorization: QBox $auth"
+	);
+
+	return curl($url, $headers, 'POST');
 }
 function 七牛对象存储列表 ($query = '') {
 	$accessKeyId        = QINIU_ACCESSKEYID;
@@ -73,27 +96,4 @@ function 七牛对象存储列表 ($query = '') {
 	}
 	$objectlist->Contents = $objectlist->items; unset($objectlist->items);
 	return $objectlist;
-}
-function 七牛对象存储删除 ($filename) {
-	$accessKeyId        = QINIU_ACCESSKEYID;
-	$accessKeySecret    = QINIU_ACCESSKEYSECRET;
-	$bucket             = QINIU_BUCKET;
-
-	$options            = '/delete/' . qn_base64_encode($bucket . ':' . $filename);
-
-	$url                = QINIU_RS_HOST . $options;
-
-	$hash               = hash_hmac(
-		'sha1',
-		$options . "\n",
-		$accessKeySecret,
-		true
-	);
-	$auth               = $accessKeyId . ':' . qn_base64_encode($hash);
-
-	$headers            = array(
-		"Authorization: QBox $auth"
-	);
-
-	return curl($url, $headers, 'POST');
 }
